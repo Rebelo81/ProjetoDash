@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Modelo de Machine Learning &#8212; Documentação ProjetoDash 1.0.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=71a39b36"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="modelo-de-machine-learning">
+<h1>Modelo de Machine Learning<a class="headerlink" href="#modelo-de-machine-learning" title="Link para este cabeçalho">¶</a></h1>
+<p>Esta seção apresenta os detalhes do modelo de aprendizado de máquina utilizado no ProjetoDash, incluindo o processo de treinamento, persistência e aplicação prática via interface interativa desenvolvida com Dash.</p>
+<section id="treinamento-do-modelo">
+<h2>Treinamento do Modelo<a class="headerlink" href="#treinamento-do-modelo" title="Link para este cabeçalho">¶</a></h2>
+<p>O modelo foi treinado com a biblioteca <cite>XGBoost</cite>, amplamente utilizada para tarefas de classificação e regressão devido à sua alta performance e capacidade de lidar com dados tabulares complexos.</p>
+<p>As etapas de pré-processamento incluíram:</p>
+<ul class="simple">
+<li><p>Análise exploratória dos dados</p></li>
+<li><p>Normalização e tratamento de valores nulos</p></li>
+<li><p>Divisão entre dados de treino e teste</p></li>
+<li><p>Avaliação com métricas como <strong>acurácia</strong>, <strong>precisão</strong> e <strong>matriz de confusão</strong></p></li>
+</ul>
+<p>O script responsável pelo treinamento foi o:</p>
+<p>Este script lê os dados, treina o modelo XGBoost e o salva para uso posterior com o <cite>joblib</cite>.</p>
+</section>
+<section id="persistencia-do-modelo">
+<h2>Persistência do Modelo<a class="headerlink" href="#persistencia-do-modelo" title="Link para este cabeçalho">¶</a></h2>
+<p>Após o treinamento, o modelo foi salvo no formato <cite>.pkl</cite> usando a biblioteca <cite>joblib</cite>, permitindo reutilização futura sem necessidade de reentreinamento.</p>
+<p>Arquivos gerados:</p>
+<ul class="simple">
+<li><p><cite>modelo_xgboost.pkl</cite> → modelo treinado</p></li>
+<li><p><cite>medianas.pkl</cite> → valores médios usados no preenchimento de dados ausentes no formulário de predição</p></li>
+</ul>
+</section>
+<section id="aplicacao-no-dashboard">
+<h2>Aplicação no Dashboard<a class="headerlink" href="#aplicacao-no-dashboard" title="Link para este cabeçalho">¶</a></h2>
+<p>O modelo foi integrado ao aplicativo Dash, permitindo previsões em tempo real diretamente pela interface web. O módulo <cite>formulario.py</cite> é responsável por:</p>
+<ul class="simple">
+<li><p>Captar os dados inseridos pelo usuário</p></li>
+<li><p>Aplicar transformações idênticas ao pipeline de treinamento</p></li>
+<li><p>Carregar o modelo persistido</p></li>
+<li><p>Realizar a predição e exibir o resultado visualmente</p></li>
+</ul>
+</section>
+<section id="testes-automatizados">
+<h2>Testes Automatizados<a class="headerlink" href="#testes-automatizados" title="Link para este cabeçalho">¶</a></h2>
+<p>Toda a aplicação está integrada com testes automatizados desenvolvidos com <cite>Selenium</cite> e <cite>Pytest</cite>, garantindo que:</p>
+<ul class="simple">
+<li><p>A interface web esteja acessível</p></li>
+<li><p>As páginas essenciais estejam funcionando (inicial, formulário e gráficos)</p></li>
+<li><p>O modelo responda conforme esperado a entradas válidas</p></li>
+</ul>
+<p>Além disso, a geração de prints automatizados e relatórios HTML permite fácil validação dos testes por qualquer membro da equipe.</p>
+</section>
+<section id="pipeline-de-integracao-continua">
+<h2>Pipeline de Integração Contínua<a class="headerlink" href="#pipeline-de-integracao-continua" title="Link para este cabeçalho">¶</a></h2>
+<p>Utilizamos <cite>Jenkins</cite> para orquestrar o processo de integração contínua (CI). O pipeline realiza:</p>
+<ol class="arabic simple">
+<li><p>Clone do repositório</p></li>
+<li><p>Instalação de dependências</p></li>
+<li><p>Execução de testes automatizados (<cite>pytest</cite>)</p></li>
+<li><p>Análise estática do código com <cite>flake8</cite></p></li>
+</ol>
+<p>Este processo garante qualidade de código, testes e entregas confiáveis em produção.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ProjetoDash</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Ir" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navegação</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Rebelo81.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/modelo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
